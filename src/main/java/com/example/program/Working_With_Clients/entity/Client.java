@@ -1,15 +1,15 @@
 package com.example.program.Working_With_Clients.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,4 +19,11 @@ public class Client {
 
     @NotBlank(message = "Email обязателен")
     private String email;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 }
